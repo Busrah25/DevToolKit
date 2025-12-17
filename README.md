@@ -94,6 +94,7 @@ DevToolkit/
 └── animated.gif
 
 
+---
 ## Design and Code Quality
 • Single shared global stylesheet for visual consistency  
 • No inline CSS or inline JavaScript  

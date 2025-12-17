@@ -59,6 +59,8 @@ Firebase Firestore
 Git and GitHub Pages  
 
 ## Project Structure
+
+```
 DevToolkit/
 ├── index.html
 ├── tools.html
@@ -72,29 +74,28 @@ DevToolkit/
 ├── signup.html
 ├── reset.html
 ├── css/
-│ └── style.css
+│   └── style.css
 ├── js/
-│ ├── auth.js
-│ ├── firebase.js
-│ ├── tools.js
-│ ├── comparison.js
-│ ├── learn.js
-│ ├── careers.js
-│ ├── favorites.js
-│ ├── contact.js
-│ ├── form.js
-│ ├── account.js
-│ ├── signin.js
-│ ├── signup.js
-│ └── reset.js
+│   ├── auth.js
+│   ├── firebase.js
+│   ├── tools.js
+│   ├── comparison.js
+│   ├── learn.js
+│   ├── careers.js
+│   ├── favorites.js
+│   ├── contact.js
+│   ├── form.js
+│   ├── account.js
+│   ├── signin.js
+│   ├── signup.js
+│   └── reset.js
 ├── data/
-│ └── tools.json
+│   └── tools.json
 └── images/
-├── logo.png
-└── animated.gif
+    ├── logo.png
+    └── animated.gif
 
-
----
+```
 ## Design and Code Quality
 • Single shared global stylesheet for visual consistency  
 • No inline CSS or inline JavaScript  

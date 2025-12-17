@@ -1,0 +1,199 @@
+<!-- signin.html -->
+<!--
+  DevToolkit Sign In Page
+  Course: CSC 4110 Software Engineering
+  Group 7
+
+  Purpose
+  - Allow registered users to sign in with email and password
+  - Support redirects so users return to the page they wanted
+
+  Notes
+  - Auth UI is handled in js auth.js
+  - Sign in behavior and redirect handling are handled in js signin.js
+  - Messaging stays simple and does not reveal sensitive account details
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Mobile first viewport setup -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>DevToolkit | Sign In</title>
+
+  <!-- Google font used consistently across all pages -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap for responsive grid and components -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Shared site styling -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="page--auth">
+  <!-- Skip link improves accessibility for keyboard users -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="text-center">
+    <img src="images/logo.png" alt="DevToolkit logo" />
+    <h1>Sign In</h1>
+    <p class="muted">Access your DevToolkit account</p>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <a class="navbar-brand fw-semibold" href="index.html">DevToolkit</a>
+
+      <button class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div id="navbarNav" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="tools.html">Tools</a></li>
+          <li class="nav-item"><a class="nav-link" href="comparison.html">Comparison</a></li>
+          <li class="nav-item"><a class="nav-link" href="learn.html">Learn</a></li>
+          <li class="nav-item"><a class="nav-link" href="careers.html">Careers</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="form.html">Suggest</a></li>
+        </ul>
+
+        <!-- Search form -->
+        <form class="d-flex ms-lg-3" action="tools.html" method="get" role="search">
+          <input class="form-control"
+                 type="search"
+                 name="q"
+                 placeholder="Search tools"
+                 aria-label="Search tools" />
+        </form>
+
+        <!-- Account dropdown -->
+        <!-- Visibility controlled by auth.js based on login state -->
+        <div class="dropdown ms-lg-3 mt-2 mt-lg-0">
+          <button id="accountBtn"
+                  type="button"
+                  class="btn btn-outline-primary dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false">
+            Account
+          </button>
+
+          <ul id="accountMenu" class="dropdown-menu dropdown-menu-end">
+            <!-- Signed out -->
+            <li data-hide-auth><a class="dropdown-item" href="signin.html">Sign In</a></li>
+            <li data-hide-auth><a class="dropdown-item" href="signup.html">Sign Up</a></li>
+
+            <!-- Signed in -->
+            <li data-show-auth class="d-none"><a class="dropdown-item" href="account.html">My Account</a></li>
+            <li data-show-auth class="d-none"><button id="logoutBtn" class="dropdown-item" type="button">Logout</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main id="main" class="container py-4">
+    <nav aria-label="Breadcrumb" class="mb-3">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Sign In</li>
+      </ol>
+    </nav>
+
+    <div class="row justify-content-center">
+      <section class="col-12 col-md-7 col-lg-5">
+        <!-- Info banner -->
+        <!-- signin.js shows this after signup when verify email was sent -->
+        <div id="verifyInfo" class="alert alert-info d-none" role="status" aria-live="polite"></div>
+
+        <div class="card">
+          <div class="card-body p-4">
+            <h2 class="h5 text-center mb-3">Sign in to your account</h2>
+
+            <form id="signinForm" novalidate>
+              <div class="mb-3">
+                <label class="form-label" for="email">Email</label>
+                <input id="email"
+                       type="email"
+                       class="form-control"
+                       autocomplete="email"
+                       required />
+              </div>
+
+              <div class="mb-2">
+                <label class="form-label" for="password">Password</label>
+                <input id="password"
+                       type="password"
+                       class="form-control"
+                       autocomplete="current-password"
+                       required />
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100 mt-3">
+                Sign In
+              </button>
+
+              <p class="small text-center mt-2 mb-0">
+                <a id="forgotLink" href="reset.html">Forgot password?</a>
+              </p>
+
+              <p id="signinMsg" class="small text-success mt-3 mb-0 d-none" role="status" aria-live="polite">
+                Signed in successfully. Redirecting…
+              </p>
+
+              <p id="signinError" class="small text-danger mt-2 mb-0 d-none" role="alert"></p>
+            </form>
+
+            <p class="small text-center mt-3 mb-0">
+              Don’t have an account? <a href="signup.html">Create one</a>
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer text-center">
+    <div class="container">
+      <p class="mb-2">© 2025 DevToolkit | Group 7</p>
+      <div class="small">
+        <a href="index.html" class="me-2">Home</a>
+        <a href="tools.html" class="me-2">Tools</a>
+        <a href="comparison.html" class="me-2">Comparison</a>
+        <a href="learn.html" class="me-2">Learn</a>
+        <a href="careers.html" class="me-2">Careers</a>
+        <a href="contact.html" class="me-2">Contact</a>
+        <a href="form.html" class="me-2">Suggest</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+  <!-- Bootstrap JS bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Project scripts -->
+  <script src="js/firebase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/signin.js"></script>
+
+</body>
+</html>

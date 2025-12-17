@@ -1,0 +1,198 @@
+<!-- account.html -->
+<!--
+  DevToolkit My Account Page
+  Course: CSC 4110 Software Engineering
+  Group 7
+
+  Purpose
+  - Protected page for signed in users
+  - Shows user profile info plus favorites, suggestions, and contacts
+
+  Notes
+  - Page behavior is handled in js account.js
+  - Auth and Firestore are handled through Firebase
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Mobile responsive layout -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>DevToolkit | My Account</title>
+
+  <!-- Fonts and framework -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Shared site styling -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <!-- Skip link helps keyboard users jump to content -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Header -->
+  <!-- Matches the branding used across the site -->
+  <header class="text-center">
+    <img src="images/logo.png" alt="DevToolkit logo" />
+    <h1>My Account</h1>
+    <p class="muted">Your saved items and submissions</p>
+  </header>
+
+  <!-- Navigation -->
+  <!-- Same structure as the homepage so the site feels consistent -->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <a class="navbar-brand fw-semibold" href="index.html">DevToolkit</a>
+
+      <!-- Mobile toggle -->
+      <button class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div id="navbarNav" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="tools.html">Tools</a></li>
+          <li class="nav-item"><a class="nav-link" href="comparison.html">Comparison</a></li>
+          <li class="nav-item"><a class="nav-link" href="learn.html">Learn</a></li>
+          <li class="nav-item"><a class="nav-link" href="careers.html">Careers</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="form.html">Suggest</a></li>
+        </ul>
+
+        <!-- Search form -->
+        <!-- Sends query to tools page -->
+        <form class="d-flex ms-lg-3" action="tools.html" method="get" role="search">
+          <input class="form-control"
+                 type="search"
+                 name="q"
+                 placeholder="Search tools"
+                 aria-label="Search tools" />
+        </form>
+
+        <!-- Account dropdown -->
+        <!-- auth.js controls which items show based on sign in state -->
+        <div class="dropdown ms-lg-3 mt-2 mt-lg-0">
+          <button id="accountBtn"
+                  type="button"
+                  class="btn btn-outline-primary dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false">
+            Account
+          </button>
+
+          <ul id="accountMenu" class="dropdown-menu dropdown-menu-end">
+            <!-- Shown only when signed out -->
+            <li data-hide-auth><a class="dropdown-item" href="signin.html">Sign In</a></li>
+            <li data-hide-auth><a class="dropdown-item" href="signup.html">Sign Up</a></li>
+
+            <!-- Shown only when signed in -->
+            <li data-show-auth class="d-none">
+              <a class="dropdown-item" href="account.html">My Account</a>
+            </li>
+            <li data-show-auth class="d-none">
+              <button id="logoutBtn" class="dropdown-item" type="button">Logout</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="container py-4" id="main">
+    <div class="row g-4">
+
+      <!-- Left column -->
+      <!-- Profile and favorites -->
+      <div class="col-12 col-lg-4">
+
+        <!-- Profile card -->
+        <div class="card card-section">
+          <div class="card-body">
+            <h2 class="h5 mb-2">Profile</h2>
+            <!-- Filled by account.js using the Firebase auth user -->
+            <p class="mb-1"><strong id="accName">Loading</strong></p>
+            <p class="text-break muted mb-0" id="accEmail"></p>
+          </div>
+        </div>
+
+        <!-- Favorites card -->
+        <div class="card card-section" id="favorites">
+          <div class="card-body">
+            <h2 class="h5 mb-2">My Favorites</h2>
+
+            <!-- Favorites list filled in real time -->
+            <ul id="favoritesList" class="list-plain"></ul>
+
+            <!-- Empty state -->
+            <p id="favoritesEmpty" class="muted mb-0">No favorites yet.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <!-- Suggestions and contacts -->
+      <div class="col-12 col-lg-8">
+
+        <div class="card card-section">
+          <div class="card-body">
+            <h2 class="h5 mb-2">My Suggestions</h2>
+            <ul id="suggestionsList" class="list-plain"></ul>
+            <p id="suggestionsEmpty" class="muted mb-0">No suggestions yet.</p>
+          </div>
+        </div>
+
+        <div class="card card-section">
+          <div class="card-body">
+            <h2 class="h5 mb-2">My Contacts</h2>
+            <ul id="contactsList" class="list-plain"></ul>
+            <p id="contactsEmpty" class="muted mb-0">No contacts yet.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer text-center">
+    <div class="container">
+      <p class="mb-2">&copy; 2025 DevToolkit | Group 7</p>
+      <div class="small">
+        <a href="index.html" class="me-2">Home</a>
+        <a href="tools.html" class="me-2">Tools</a>
+        <a href="comparison.html" class="me-2">Comparison</a>
+        <a href="learn.html" class="me-2">Learn</a>
+        <a href="careers.html" class="me-2">Careers</a>
+        <a href="contact.html" class="me-2">Contact</a>
+        <a href="form.html" class="me-2">Suggest</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+  <!-- Bootstrap JS bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Project scripts -->
+  <script src="js/firebase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/account.js"></script>
+
+\</body>
+</html>

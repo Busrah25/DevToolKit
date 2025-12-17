@@ -1,0 +1,418 @@
+/* css/style.css */
+/*
+  DevToolkit – Global Stylesheet
+  Course: CSC 4110 – Software Engineering
+  Group: Group 7
+
+  Purpose:
+  - Defines the visual theme and layout for the entire application
+  - Uses CSS variables (design tokens) for consistency and easy updates
+  - Keeps page specific styling scoped using body classes
+*/
+
+/* =============================================================================
+   Theme Tokens
+   ============================================================================= */
+
+   :root{
+    --bg: #F8F7F3;              /* main background */
+    --text: #2E2E2E;            /* primary text color */
+    --muted: #6B6B6B;           /* secondary text */
+  
+    --primary: #9CAF88;         /* sage green brand color */
+    --primary-600: #7D946A;     /* darker shade for hover states */
+    --primary-50: #EEF3EE;      /* very light accent background */
+  
+    --white: #FFFFFF;
+    --card-shadow: 0 6px 16px rgba(0,0,0,.05);
+    --card-shadow-hover: 0 12px 24px rgba(0,0,0,.10);
+  
+    --radius-card: 16px;
+    --radius-btn: 12px;
+  
+    --focus: 0 0 0 3px rgba(156,175,136,.35);
+  }
+  
+  /* =============================================================================
+     Base and Reset
+     ============================================================================= */
+  
+  *{ box-sizing: border-box; }
+  
+  html, body{ height: 100%; }
+  
+  body{
+    font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+  
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  a{ color: inherit; }
+  
+  a:focus-visible,
+  button:focus-visible,
+  .form-control:focus{
+    outline: none;
+    box-shadow: var(--focus) !important;
+  }
+  
+  /* =============================================================================
+     Skip Link
+     ============================================================================= */
+  
+  .skip-link{
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  
+  .skip-link:focus{
+    position: static;
+    width: auto;
+    height: auto;
+    padding: .5rem .75rem;
+    background: #000;
+    color: #fff;
+  }
+  
+  /* =============================================================================
+     Header and Navigation
+     ============================================================================= */
+  
+  header{
+    background: linear-gradient(135deg, #BFCFB5, #9CAF88);
+    color: #fff;
+    text-align: center;
+    padding: 40px 0;
+  }
+  
+  header img{
+    width: 80px;
+    max-height: 80px;
+    margin-bottom: 10px;
+  }
+  
+  header h1{
+    font-size: clamp(1.8rem, 1.2rem + 2vw, 2.6rem);
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  header p{
+    margin: .5rem 0 0;
+    opacity: .95;
+  }
+  
+  .navbar{
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,.05);
+  }
+  
+  .nav-link{
+    color: var(--text) !important;
+    font-weight: 500;
+  }
+  
+  .nav-link:hover{
+    color: var(--primary-600) !important;
+  }
+  
+  .dropdown-menu{
+    max-height: 60vh;
+    overflow: auto;
+  }
+  
+  /* =============================================================================
+     Cards, Buttons, Badges
+     ============================================================================= */
+  
+  .card{
+    border: none;
+    border-radius: var(--radius-card);
+    box-shadow: var(--card-shadow);
+    transition: transform .25s ease, box-shadow .25s ease;
+    background: #fff;
+  }
+  
+  .card:hover{
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow-hover);
+  }
+  
+  .card-title{
+    color: var(--muted);
+  }
+  
+  .btn-primary{
+    background: var(--primary);
+    border-color: var(--primary);
+    border-radius: var(--radius-btn);
+    padding: 8px 20px;
+    font-weight: 500;
+  }
+  
+  .btn-primary:hover{
+    background: var(--primary-600);
+    border-color: var(--primary-600);
+  }
+  
+  .btn-outline-primary{
+    color: var(--primary);
+    border-color: var(--primary);
+    border-radius: var(--radius-btn);
+    font-weight: 500;
+  }
+  
+  .btn-outline-primary:hover{
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+  }
+  
+  .btn-pill{
+    border-radius: 999px !important;
+  }
+  
+  .badge-soft{
+    background: var(--primary-50);
+    color: #425043;
+    font-weight: 600;
+  }
+  
+  /* =============================================================================
+     Forms
+     ============================================================================= */
+  
+  form label{
+    font-weight: 500;
+    color: var(--text);
+  }
+  
+  .form-control{
+    border-radius: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  .form-text{
+    color: #6c757d;
+  }
+  
+  /* =============================================================================
+     Footer
+     ============================================================================= */
+  
+  footer,
+  .site-footer{
+    background: var(--primary);
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  .site-footer a{
+    color: #fff;
+    text-decoration: underline;
+  }
+  
+  /* =============================================================================
+     Utilities
+     ============================================================================= */
+  
+  .muted{ opacity: .75; }
+  
+  .text-subtle{ color: #6c757d; }
+  
+  .chip{
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    border-radius: 999px;
+    padding: .25rem .65rem;
+    background: var(--primary-50);
+    font-size: .85rem;
+    margin: .25rem .35rem .25rem 0;
+  }
+  
+  .chip .x{
+    cursor: pointer;
+    font-weight: 700;
+    opacity: .6;
+  }
+  
+  /* =============================================================================
+     Page Styles: Tools
+     ============================================================================= */
+  
+  body.page--tools .filters .form-label{
+    margin-bottom: .25rem;
+  }
+  
+  body.page--tools .tool-card:hover{
+    transform: translateY(-4px);
+  }
+  
+  body.page--tools .cards-grid{
+    min-height: 160px;
+  }
+  
+  body.page--tools .fav-toggle.is-favorited{
+    font-weight: 600;
+  }
+  
+  /* =============================================================================
+     Page Styles: Comparison
+     ============================================================================= */
+  
+  body.page--comparison .picker{
+    position: sticky;
+    top: 1rem;
+  }
+  
+  body.page--comparison .card-soft{
+    border: 0;
+    border-radius: 18px;
+    box-shadow: 0 10px 28px rgba(0,0,0,.06);
+  }
+  
+  body.page--comparison .kicker{
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+    color: #6c757d;
+    text-transform: uppercase;
+  }
+  
+  body.page--comparison .list-scroll{
+    max-height: 62vh;
+    overflow: auto;
+    padding-right: .25rem;
+  }
+  
+  body.page--comparison .search-wrap{
+    position: relative;
+  }
+  
+  body.page--comparison .search-wrap .form-control{
+    padding-left: 2.1rem;
+  }
+  
+  body.page--comparison .search-wrap .bi{
+    position: absolute;
+    left: .65rem;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: .5;
+  }
+  
+  body.page--comparison .tool-row{
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    padding: .45rem .4rem;
+    border-radius: 12px;
+  }
+  
+  body.page--comparison .tool-row:hover{
+    background: #f7f9fb;
+  }
+  
+  body.page--comparison .tool-title{
+    font-weight: 600;
+  }
+  
+  body.page--comparison .tool-sub{
+    font-size: .85rem;
+    color: #6c757d;
+  }
+  
+  body.page--comparison .table thead th{
+    position: sticky;
+    top: -1px;
+    background: #fff;
+    z-index: 1;
+  }
+  
+  body.page--comparison .empty{
+    border: 1px dashed rgba(0,0,0,.15);
+    border-radius: 18px;
+    padding: 2.25rem;
+    text-align: center;
+    color: #6c757d;
+  }
+  
+  body.page--comparison .result-meta{
+    font-size: .9rem;
+  }
+  
+  /* =============================================================================
+     Page Styles: Account
+     ============================================================================= */
+  
+  body.page--account .card-section{
+    margin-bottom: 1.25rem;
+  }
+  
+  body.page--account .list-plain{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body.page--account #favoritesList li,
+  body.page--account #suggestionsList li,
+  body.page--account #contactsList li{
+    padding: .4rem .25rem;
+    border-bottom: 1px dashed rgba(0,0,0,.08);
+  }
+  
+  body.page--account #favoritesList li:last-child,
+  body.page--account #suggestionsList li:last-child,
+  body.page--account #contactsList li:last-child{
+    border-bottom: 0;
+  }
+  
+  /* =============================================================================
+     Page Styles: Auth
+     ============================================================================= */
+  
+  body.page--auth header{
+    padding: 28px 0;
+  }
+  
+  body.page--auth .auth-card{
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  
+  body.page--auth .alert{
+    border-radius: 12px;
+  }
+  
+  /* =============================================================================
+     Responsive
+     ============================================================================= */
+  
+  @media (max-width: 992px){
+    header{ padding: 32px 0; }
+  }
+  
+  @media (max-width: 576px){
+    .navbar .form-control{ width: 100%; }
+  
+    header img{
+      width: 68px;
+      max-height: 68px;
+    }
+  
+    body.page--comparison .tool-row .tool-sub{
+      font-size: .8rem;
+    }
+  }
+  

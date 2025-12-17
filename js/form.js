@@ -17,11 +17,14 @@
 
 ;(function suggestModule(){
 
-  const TEAM_EMAILS =
-    "hi2757@wayne.edu," +
-    "hk7748@wayne.edu," +
-    "hl2754@wayne.edu," +
-    "hk9059@wayne.edu";
+  
+    const TEAM_EMAILS =
+      "hi2757@wayne.edu," +
+      "hk7748@wayne.edu," +
+      "hl2754@wayne.edu," +
+      "hg0080@wayne.edu," +
+      "hk9059@wayne.edu";
+  
 
   const fb = window.firebase || null;
   const auth = window.auth || (fb && fb.auth ? fb.auth() : null);
